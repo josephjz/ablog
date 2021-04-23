@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tutorialblog', # added the project app to the installed apps of project wide settings.py
 ]
 
 MIDDLEWARE = [
