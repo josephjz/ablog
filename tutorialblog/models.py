@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 class Post(models.Model):
     title = models.CharField(max_length = 255)
     author = models.ForeignKey(User, on_delete = models.CASCADE) # deletes blog post from a user that has been deleted
+                                                                # think about adding this for Biblio
+    # ForeignKey key is from the User 
+    
     body = models.TextField()
 
     def __str__(self):

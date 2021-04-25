@@ -18,9 +18,14 @@ Including another URLconf
 
 # deleted admin import 
 from django.urls import path  # deleted include import
-from . import views
+# from . import views # this is what we have for function based views 
+from .views import HomeView, ArticleDetailView
 
 urlpatterns = [
     # deleted paths from project wide urls.py, instead writing new ones 
-    path('', views.home, name = "home")  # this name is the function name in the views.py file, which we need to go create in urls.py
+    #path('', views.home, name = "home")  # this name is the function name in the views.py file, which we need to go create in urls.py
+
+    # now we need class based views urls 
+    path('', HomeView.as_view(), name = "home"), # home page 
+    path('article/<int:pk>', ArticleDetailView.as_view(), name = "article-detail")   # BIG NOTE: each blog post has its own primary key, makes every post unique
 ]

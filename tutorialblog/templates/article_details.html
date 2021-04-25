@@ -1,0 +1,11 @@
+<!-- this will be the page displayed when you click the specific blog post  -->
+
+<h1>{{post.title}}</h1>
+<small> By: {{post.author.first_name}} {{post.author.last_name}}</small>
+<hr>
+<br>
+{{post.body}}
+
+<br><br>
+
+<a href= "{% url 'home' %}">Back</a>
