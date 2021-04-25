@@ -16,13 +16,24 @@ Add Blog Post
 
 <h1>Add Post </h1>
 <br><br>
-<form method = "POST">
-    {% csrf_token %}
-    <!-- using django form system -->
-    {{form.as_p}}
-    <button class = "btn btn-secondary"> Post </button>
+<!-- table option for styling automatically <table>
+    <form method = "POST">
+        {% csrf_token %}
+        <!-- using django form system 
+        {{form.as_table}}     <!-- 0 styling on this    
+    </form>
+</table>
+<button class = "btn btn-secondary"> Post </button> -->
 
-</form>
+<div class = "form-group"> 
+    <form method = "POST">
+        {% csrf_token %}
+        <!-- using django form system -->
+        {{form.as_p}}     <!-- 0 styling on this -->    <!-- as p means every field is in a p tag -->
+        <button class = "btn btn-secondary"> Post </button>
+    </form>
+</div>
+
 
 {% endblock %}
 

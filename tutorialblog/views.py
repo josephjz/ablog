@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Post
+from .forms import PostForm
 from django.views.generic import ListView, DetailView, CreateView # these are generic views that make query sets to data base for us 
                                                       # list for all of our blog posts 
                                                       # detail to view one blog post 
@@ -22,11 +23,12 @@ class ArticleDetailView(DetailView):
     template_name = 'article_details.html'
 
 class AddPostView(CreateView):
-    model = Post
+    model = Post # this tells the view to use the post model 
+    form_class = PostForm # but we also need to tell it to use our post form 
     template_name = 'add_post.html'
     # designate the fields for this page 
     # fields = ('title', 'body')    THIS DID NOT WORK
-    fields = '__all__'
+    # fields = '__all__' since we are now using the post form, we dont want to use this fields thing anymore (might be problematic)
 
 
 
