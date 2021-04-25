@@ -19,7 +19,7 @@ Including another URLconf
 # deleted admin import 
 from django.urls import path  # deleted include import
 # from . import views # this is what we have for function based views 
-from .views import HomeView, ArticleDetailView, AddPostView
+from .views import HomeView, ArticleDetailView, AddPostView, UpdatePostView
 
 urlpatterns = [
     # deleted paths from project wide urls.py, instead writing new ones 
@@ -29,4 +29,5 @@ urlpatterns = [
     path('', HomeView.as_view(), name = "home"), # home page 
     path('article/<int:pk>', ArticleDetailView.as_view(), name = "article-detail"),   # BIG NOTE: each blog post has its own primary key, makes every post unique
     path('add_post/', AddPostView.as_view(), name = "add-post"), 
+    path('article/edit/<int:pk>', UpdatePostView.as_view(), name = "update-post"), 
 ]

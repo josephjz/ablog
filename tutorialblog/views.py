@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Post
-from .forms import PostForm
-from django.views.generic import ListView, DetailView, CreateView # these are generic views that make query sets to data base for us 
+from .forms import PostForm, EditForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView # these are generic views that make query sets to data base for us 
                                                       # list for all of our blog posts 
                                                       # detail to view one blog post 
                                                       # makes the process much easier, but might not be compatible with biblio
@@ -30,7 +30,11 @@ class AddPostView(CreateView):
     # fields = ('title', 'body')    THIS DID NOT WORK
     # fields = '__all__' since we are now using the post form, we dont want to use this fields thing anymore (might be problematic)
 
-
+class UpdatePostView(UpdateView): # by passing in UpdatView we dont need to do the form_class thing that will happen automatically 
+    model = Post
+    form_class = EditForm # note you cant have both a form class and a fields 
+    template_name = 'update_post.html'
+    # fields = ['title', 'title_tag','body']
 
 
 

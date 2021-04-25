@@ -22,3 +22,18 @@ class PostForm(forms.ModelForm):
             'author': forms.Select(attrs={'class':'form-control'}), # this is a drop down, aka select drop down
             'body': forms.Textarea(attrs={'class':'form-control', 'placeholder':'What is on your mind today?'}), # this is a body, which is a text area 
         }
+
+class EditForm(forms.ModelForm):
+    class Meta: 
+        model = Post
+        fields = { # not editing the author 
+            'title',
+            'title_tag',
+            'body'
+        }
+
+        widgets = {
+            'title': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter a post title'}),
+            'title_tag': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter a post title tag'}),
+            'body': forms.Textarea(attrs={'class':'form-control', 'placeholder':'What is on your mind today?'}), # this is a body, which is a text area 
+        }
