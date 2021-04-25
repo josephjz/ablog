@@ -8,12 +8,13 @@
 {% block content %}
 
 <h1>{{post.title}}</h1> 
-<small> By: {{post.author.first_name}} {{post.author.last_name}} </small>
+<small> By: {{post.author.first_name}} {{post.author.last_name}} </small> <br>
+<small> Date: {{post.post_date}} </small>
 <hr>
 <br>
 {{post.body}}
 <br>
-<a href = "{% url 'update-post' post.pk %}"><small>[Edit]</small></a>
+<a href = "{% url 'update-post' post.pk %}"><small>[Edit]</small></a> <a href = "{% url 'delete-post' post.pk %}"><small>[Delete]</small></a>
 <br><br>
 
 <!-- without the class = this is a hyperlink, adding class makes it a bootstrap button  -->

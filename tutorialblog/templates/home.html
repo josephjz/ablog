@@ -18,7 +18,8 @@ My Freaking Awesome Blog Home
 
 <ul>
 {% for post in object_list %}
-    <li> <a href = "{% url 'article-detail' post.pk %}"> {{post.title}} </a>{{post.author.first_name}} {{post.author.last_name}} - <a href = "{% url 'update-post' post.pk %}"><small>[Edit]</small></a><br>
+    <li> <a href = "{% url 'article-detail' post.pk %}"> {{post.title}} </a>{{post.author.first_name}} {{post.author.last_name}} - <a href = "{% url 'update-post' post.pk %}"><small>[Edit]</small></a> <a href = "{% url 'delete-post' post.pk %}"><small>[Delete]</small></a>
+        <br>
         <!-- {{post.author.email}} <br>  -->
     {{post.body}} </li>
 {% endfor %}

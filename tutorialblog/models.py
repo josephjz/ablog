@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from django.urls import reverse
+from datetime import datetime, date
 
 class Post(models.Model):
     title = models.CharField(max_length = 255)
@@ -11,6 +12,7 @@ class Post(models.Model):
     # ForeignKey key is from the User 
     
     body = models.TextField()
+    post_date = models.DateField(auto_now_add=True) # will happen automatically when new blog posts are created 
 
     def __str__(self):
         return self.title + ' | ' + str(self.author)   #lets us see title and author on the admin back end 

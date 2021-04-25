@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from .models import Post
 from .forms import PostForm, EditForm
-from django.views.generic import ListView, DetailView, CreateView, UpdateView # these are generic views that make query sets to data base for us 
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+                                                      # these are generic views that make query sets to data base for us 
                                                       # list for all of our blog posts 
                                                       # detail to view one blog post 
                                                       # makes the process much easier, but might not be compatible with biblio
@@ -17,6 +19,8 @@ class HomeView(ListView): # normally we pass in the request
     # want to list all of the blog posts on the homepage using the post model 
     model = Post    # note the difference here too of using Post not User 
     template_name = 'home.html'
+    # ordering = ['-id'] # helpful to look at the migrations to see this id in action
+    ordering = ['-post_date']
 
 class ArticleDetailView(DetailView):
     model = Post
@@ -35,6 +39,11 @@ class UpdatePostView(UpdateView): # by passing in UpdatView we dont need to do t
     form_class = EditForm # note you cant have both a form class and a fields 
     template_name = 'update_post.html'
     # fields = ['title', 'title_tag','body']
+
+class DeletePostView(DeleteView):
+    model = Post
+    template_name = 'delete_post.html'
+    success_url = reverse_lazy('home')
 
 
 
