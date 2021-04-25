@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Post
-from django.views.generic import ListView, DetailView # these are generic views that make query sets to data base for us 
+from django.views.generic import ListView, DetailView, CreateView # these are generic views that make query sets to data base for us 
                                                       # list for all of our blog posts 
                                                       # detail to view one blog post 
                                                       # makes the process much easier, but might not be compatible with biblio
@@ -20,6 +20,15 @@ class HomeView(ListView): # normally we pass in the request
 class ArticleDetailView(DetailView):
     model = Post
     template_name = 'article_details.html'
+
+class AddPostView(CreateView):
+    model = Post
+    template_name = 'add_post.html'
+    # designate the fields for this page 
+    # fields = ('title', 'body')    THIS DID NOT WORK
+    fields = '__all__'
+
+
 
 
 
