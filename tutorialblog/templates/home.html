@@ -1,4 +1,8 @@
-<h1>Posts</h1>
+{% extends 'base.html' %}
+
+{% block title %}
+My Freaking Awesome Blog Home
+{% endblock %}
 
 
 <!-- object_list is query of all blog posts from the data base -->
@@ -8,6 +12,9 @@
 <!-- inside of '' is the name of the url we want to point to (look at the urls file) -->
 <!-- need post.pk to know which post was clicked, and this post.pk gets passed to <int:pk> in url code-->
 
+{% block content %}
+
+<h1>Posts</h1>
 
 <ul>
 {% for post in object_list %}
@@ -16,4 +23,6 @@
     {{post.body}} </li>
 {% endfor %}
 </ul>
+{% endblock %}
+
 

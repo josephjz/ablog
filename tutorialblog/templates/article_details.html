@@ -1,4 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{post.title_tag}}
+{% endblock %}
 <!-- this will be the page displayed when you click the specific blog post  -->
+
+{% block content %}
 
 <h1>{{post.title}}</h1>
 <small> By: {{post.author.first_name}} {{post.author.last_name}}</small>
@@ -8,4 +15,7 @@
 
 <br><br>
 
-<a href= "{% url 'home' %}">Back</a>
+<!-- without the class = this is a hyperlink, adding class makes it a bootstrap button  -->
+<a href= "{% url 'home' %}" class = "btn btn-secondary">Back</a>    
+
+{% endblock %}
