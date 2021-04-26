@@ -4,13 +4,23 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from datetime import datetime, date
 
+
+# this is a lil more involved than we need for the majors, but could work
+class Category(models.Model):
+    name =  models.CharField(max_length = 255)
+    def __str__(self):
+        return self.name #lets us see category name on the admin back end 
+
+    def get_absolute_url(self):
+        return reverse('home')
+
 class Post(models.Model):
     title = models.CharField(max_length = 255)
     title_tag = models.CharField(max_length = 255)#, default = "My Freaking Awesome Blog")
     author = models.ForeignKey(User, on_delete = models.CASCADE) # deletes blog post from a user that has been deleted
                                                                 # think about adding this for Biblio
     # ForeignKey key is from the User 
-    
+    category = models.CharField(max_length = 255, default = 'uncategorized')
     body = models.TextField()
     post_date = models.DateField(auto_now_add=True) # will happen automatically when new blog posts are created 
 

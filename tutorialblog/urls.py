@@ -19,7 +19,7 @@ Including another URLconf
 # deleted admin import 
 from django.urls import path  # deleted include import
 # from . import views # this is what we have for function based views 
-from .views import HomeView, ArticleDetailView, AddPostView, UpdatePostView, DeletePostView
+from .views import HomeView, ArticleDetailView, AddPostView, UpdatePostView, DeletePostView, AddCategoryView
 
 urlpatterns = [
     # deleted paths from project wide urls.py, instead writing new ones 
@@ -31,4 +31,5 @@ urlpatterns = [
     path('add_post/', AddPostView.as_view(), name = "add-post"), 
     path('article/edit/<int:pk>', UpdatePostView.as_view(), name = "update-post"), 
     path('article/delete/<int:pk>', DeletePostView.as_view(), name = "delete-post"), 
+    path('add_category/', AddCategoryView.as_view(), name = "add-category"), 
 ]

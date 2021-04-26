@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Post
+from .models import Post, Category
 from .forms import PostForm, EditForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -44,6 +44,14 @@ class DeletePostView(DeleteView):
     model = Post
     template_name = 'delete_post.html'
     success_url = reverse_lazy('home')
+
+class AddCategoryView(CreateView):
+    model = Category # this tells the view to use the post model 
+    #form_class = PostForm # but we also need to tell it to use our post form 
+    template_name = 'add_category.html'
+    # designate the fields for this page 
+    fields = '__all__' # remember we need either form_class or to name fields 
+
 
 
 
