@@ -24,7 +24,7 @@ My Freaking Awesome Blog Home
         - <a href = "{% url 'update-post' post.pk %}"><small>[Edit]</small></a> <a href = "{% url 'delete-post' post.pk %}"><small>[Delete]</small></a>
         <br>
         {% endif %}
-    {{post.body|slice:":200"}} </li>
+    {{ post.body }} </li>
     <!-- slice only displays 200 characters on the homepage  -->
 {% endfor %}
 </ul>
