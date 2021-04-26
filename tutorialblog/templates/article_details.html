@@ -14,7 +14,11 @@
 <br>
 {{post.body}}
 <br>
+
+{% if user.is_authenticated %}
 <a href = "{% url 'update-post' post.pk %}"><small>[Edit]</small></a> <a href = "{% url 'delete-post' post.pk %}"><small>[Delete]</small></a>
+
+{% endif %}
 <br><br>
 
 <!-- without the class = this is a hyperlink, adding class makes it a bootstrap button  -->

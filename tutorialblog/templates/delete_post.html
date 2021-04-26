@@ -6,20 +6,26 @@ Delete Blog Post
 
 {% block content %}
 
-<h1>Delete Post</h1>
-<!-- to show the post we are going to delete -->
-<h3> Delete: {{post.title}} </h3>
-<br><br>
-<div class = "form-group"> 
-    <form method = "POST">
-        {% csrf_token %}
-        <!-- using django form system -->
-        <!-- dont need to post anything, just need to make sure they want to  -->
-        <strong> Are you sure you want to delete this?! </strong> <br><br>
-        <button class = "btn btn-secondary"> Delete </button>
-    </form>
-</div>
 
+{% if user.is_authenticated %}
+    <h1>Delete Post</h1>
+    <!-- to show the post we are going to delete -->
+    <h3> Delete: {{post.title}} </h3>
+    <br><br>
+    <div class = "form-group"> 
+        <form method = "POST">
+            {% csrf_token %}
+            <!-- using django form system -->
+            <!-- dont need to post anything, just need to make sure they want to  -->
+            <strong> Are you sure you want to delete this?! </strong> <br><br>
+            <button class = "btn btn-secondary"> Delete </button>
+        </form>
+    </div>
+
+{% else %}
+You are not allowed here 
+
+{% endif %}
 {% endblock %}
 
 

@@ -18,10 +18,14 @@ My Freaking Awesome Blog Home
 
 <ul>
 {% for post in object_list %}
-    <li> <a href = "{% url 'article-detail' post.pk %}"> {{post.title}} </a>{{post.author.first_name}} {{post.author.last_name}} - <a href = "{% url 'update-post' post.pk %}"><small>[Edit]</small></a> <a href = "{% url 'delete-post' post.pk %}"><small>[Delete]</small></a>
+    <li> <a href = "{% url 'article-detail' post.pk %}"> {{post.title}} </a>{{post.author.first_name}} {{post.author.last_name}} 
+        <!-- if the user is logged in, we want them to be able to edit and delete -->
+        {% if user.is_authenticated %}
+        - <a href = "{% url 'update-post' post.pk %}"><small>[Edit]</small></a> <a href = "{% url 'delete-post' post.pk %}"><small>[Delete]</small></a>
         <br>
-        <!-- {{post.author.email}} <br>  -->
-    {{post.body}} </li>
+        {% endif %}
+    {{post.body|slice:":200"}} </li>
+    <!-- slice only displays 200 characters on the homepage  -->
 {% endfor %}
 </ul>
 {% endblock %}

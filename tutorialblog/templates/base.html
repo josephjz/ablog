@@ -28,16 +28,26 @@
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'add-post' %}">Add Post</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'register' %}">Register</a>
-            </li>
-            <li class="nav-item">
-              <!-- IMPORTANT NOTE: remember in original urls.py file (project wide) the django.contrib.auth.urls has login as one of those built in login urls for us -->
-              <a class="nav-link" href="{% url 'login' %}">Login</a>  
-            </li>
+
+            <!-- SUPER IMPORTANT LOOK AT THIS CODE -->
+            <!-- this is where we add in django code to change if user is logged in or not -->
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'add-post' %}">Add Post</a>
+                </li>
+                <li class="nav-item">
+                  <!-- IMPORTANT NOTE: remember in original urls.py file (project wide) the django.contrib.auth.urls has login as one of those built in login urls for us -->
+                  <a class="nav-link" href="{% url 'logout' %}">Logout</a>  
+                </li>
+            {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                  <!-- IMPORTANT NOTE: remember in original urls.py file (project wide) the django.contrib.auth.urls has login as one of those built in login urls for us -->
+                  <a class="nav-link" href="{% url 'login' %}">Login</a>  
+                </li>
+            {% endif %}
           </ul>
         </div>
       </nav>

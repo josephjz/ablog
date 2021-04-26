@@ -6,6 +6,8 @@ Edit Blog Post
 
 {% block content %}
 
+<!-- can only get to the edit page if you are logged in  -->
+{% if user.is_authenticated %}
 <h1>Edit Post</h1>
 <br><br>
 <div class = "form-group"> 
@@ -17,6 +19,11 @@ Edit Blog Post
     </form>
 </div>
 
+<!-- if not logged in, all the edit page is hidden -->
+{% else %}
+<h1>Get out of here</h1>
+
+{% endif %}
 {% endblock %}
 
 
