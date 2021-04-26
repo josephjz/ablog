@@ -53,6 +53,13 @@ class AddCategoryView(CreateView):
     fields = '__all__' # remember we need either form_class or to name fields 
 
 
+# AYE going to do a function based view for fun 
+
+def CategoryView(request, cats): # remember this (cats) is what we named it on the urls.py file 
+    return render(request, 'categories.html', {'cats': cats})
+
+
+
 
 
 
