@@ -55,18 +55,19 @@ class AddCategoryView(CreateView):
 
 # AYE going to do a function based view for fun 
 
-def CategoryView(request, cats): # remember this (cats) is what we named it on the urls.py file; it is a string variable 
+def CategoryView(request, cats): # remember this (cats) is what we named it on the urls.py file; it is a string variable, the cats that gets passed is now going to have a - from our html...
 
     # now we need to query the database 
     # before in the class based views they were doing this for us 
     # just the posts of the specific cats category
 
-    category_posts = Post.objects.filter(category=cats)
-    # Post.objects queries our post model 
+    category_posts = Post.objects.filter(category=cats.replace('-',' '))    # so we use a little bit of python to replace all - with a space
+    # Post.objects queries our post model   
     # category is a field in our post model
     # now category_post is an object, so we can pass it into our html 
 
-    return render(request, 'categories.html', {'cats': cats.title(), 'category_posts':category_posts}) #.title makes it cap
+                                                                # so that the title in the html tag comes up with spacee instead of - 
+    return render(request, 'categories.html', {'cats': cats.title().replace('-',' '), 'category_posts':category_posts}) #.title makes it cap
         # third param of function based views return render() is the context directory, these objects are then recognized by that html page 
         # can use bots cats and category_posts as vars on categories.html now 
 

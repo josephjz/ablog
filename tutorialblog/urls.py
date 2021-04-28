@@ -23,7 +23,7 @@ from .views import HomeView, ArticleDetailView, AddPostView, UpdatePostView, Del
 
 urlpatterns = [
     # deleted paths from project wide urls.py, instead writing new ones 
-    #path('', views.home, name = "home")  # this name is the function name in the views.py file, which we need to go create in urls.py
+    # path('', views.home, name = "home")  # this name is the function name in the views.py file, which we need to go create in urls.py
 
     # now we need class based views urls 
     path('', HomeView.as_view(), name = "home"), # home page 
