@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Post, Category
 from .forms import PostForm, EditForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.http import HttpResponseRedirect
                                                       # these are generic views that make query sets to data base for us 
                                                       # list for all of our blog posts 
                                                       # detail to view one blog post 
@@ -48,6 +49,12 @@ class ArticleDetailView(DetailView):
         context = super(ArticleDetailView, self).get_context_data(*args, **kwargs) # dont forget to change the super(_) for which view we are now working with 
         # super(_,) where _ is the view we are in 
         context["cat_menu"] = cat_menu
+        
+        # look up what post we are looking at, look it up in db Post, find post with id of primary key 
+        stuff = get_object_or_404(Post, id = self.kwargs['pk'])
+        total_likes = stuff.total_likes()   # rememebr we created this total likes() function in model
+        # adding another context variable to pass in likes 
+        context["total_likes"] = total_likes
         return context  # so now we can access "cat_menu" from our home page
 
 class AddPostView(CreateView):
@@ -98,8 +105,6 @@ def CategoryView(request, cats): # remember this (cats) is what we named it on t
         # third param of function based views return render() is the context directory, these objects are then recognized by that html page 
         # can use bots cats and category_posts as vars on categories.html now 
 
-    
-
 def CategoryListView(request): 
     # categories page which is linked in the nav bar 
     # query the data base like we did in HomeView
@@ -107,6 +112,20 @@ def CategoryListView(request):
     # pass this query into our page 
 
     return render(request, 'category_list.html', {'cat_menu_list':cat_menu_list}) 
+
+def LikeView(request, pk):
+    # when this gets called, we have liked a post 
+    # need to save that to the db, knowing which post and saving it as a like 
+    # use get object here -- this requires an import 
+
+    post = get_object_or_404(Post, id = request.POST.get('post_id')) # look up our post table, and grab id that equals request.post.get('post_id')
+    # this is post id because of the name param in button on article detials page 
+    post.likes.add(request.user)
+
+    # when clicking the home button we dont want the page to switch
+    return HttpResponseRedirect(reverse('article-detail', args = [str(pk)]))
+
+
 
 
 

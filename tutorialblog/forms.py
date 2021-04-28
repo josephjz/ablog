@@ -32,12 +32,19 @@ class PostForm(forms.ModelForm):
             'body'
         }
 
+        # note: before for loggedin/authenticating user, we used user.id but that is only known to the front end 
+        # the backend does not know it so we need to work around this author drop down 
+        # to only give us the appropriate author 
+        # we are going to hack around with javascript 
+
+
         widgets = {
             'title': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter your post title'}),
             'title_tag': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter a post title tag'}),
-            'author': forms.Select(attrs={'class':'form-control'}), # this is a drop down, aka select drop down
+            #'author_deleted': forms.Select(attrs={'class':'form-control'}), # this is a drop down, aka select drop down
+            #'author': forms.TextInput(attrs={'class':'form-control','value':'','id':'elder','type':'hidden'}), # we add and id for this textbox to write some javascript with it in add post page
+            'author': forms.TextInput(attrs={'class':'form-control','readonly':'readonly','id':'elder'}), # we add and id for this textbox to write some javascript with it in add post page
             'category': forms.Select(choices = choice_list, attrs={'class':'form-control'}), # these are hard coded choices; would get error if you put attrs first 
-
             'body': forms.Textarea(attrs={'class':'form-control', 'placeholder':'What is on your mind today?'}), # this is a body, which is a text area 
         }
 

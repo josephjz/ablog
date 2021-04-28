@@ -21,8 +21,16 @@
 
 <hr>
 {{post.body}}
-<br><br>
+<br>
+<hr>
+
+<form action="{% url 'like-post' post.pk%}" method = "POST"}>   <!-- passing post.pk rememebrs which post we are looking at -->
+<!-- remember that for all forms we need a csrf token  -->
+{% csrf_token %}                            <!-- value = "{{post.id}}" passes the post to the backend to know where to put the like -->
+<button type = "submit", name = "post_id", value = "{{post.id}}", class = "btn btn-primary btn-sm">Like</button> {{total_likes}} Likes 
+</form>
+<br>
 <!-- without the class = this is a hyperlink, adding class makes it a bootstrap button  -->
-<a href= "{% url 'home' %}" class = "btn btn-secondary">Back</a>    
+<a href= "{% url 'home' %}" class = "btn btn-secondary btn-small">Back</a>    
 
 {% endblock %}

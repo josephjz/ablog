@@ -24,6 +24,14 @@ class Post(models.Model):
     body = models.TextField()
     post_date = models.DateField(auto_now_add=True) # will happen automatically when new blog posts are created 
 
+    # adding a new field for likes 
+    # using many to many becuase we are associating iff things from diff tables 
+    # any time we change the data baes must make a migration
+    likes = models.ManyToManyField(User, related_name = 'blog_post') 
+
+    def total_likes(self):
+        return self.likes.count()
+
     def __str__(self):
         return self.title + ' | ' + str(self.author)   #lets us see title and author on the admin back end 
 
