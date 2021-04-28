@@ -26,8 +26,22 @@
 
 <form action="{% url 'like-post' post.pk%}" method = "POST"}>   <!-- passing post.pk rememebrs which post we are looking at -->
 <!-- remember that for all forms we need a csrf token  -->
-{% csrf_token %}                            <!-- value = "{{post.id}}" passes the post to the backend to know where to put the like -->
-<button type = "submit", name = "post_id", value = "{{post.id}}", class = "btn btn-primary btn-sm">Like</button> {{total_likes}} Likes 
+{% csrf_token %}    
+
+<!-- value = "{{post.id}}" passes the post to the backend to know where to put the like -->
+
+{% if user.is_authenticated %}
+    {% if liked %}
+        <button type = "submit", name = "post_id", value = "{{post.id}}", class = "btn btn-danger btn-sm">Unlike</button>  
+    {% else %}
+        <button type = "submit", name = "post_id", value = "{{post.id}}", class = "btn btn-primary btn-sm">Like</button>  
+    {% endif %}
+{% else %}
+You must be logged in to like posts
+{% endif %}
+<br>
+{{total_likes}} Likes
+
 </form>
 <br>
 <!-- without the class = this is a hyperlink, adding class makes it a bootstrap button  -->

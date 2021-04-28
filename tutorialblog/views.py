@@ -55,6 +55,12 @@ class ArticleDetailView(DetailView):
         total_likes = stuff.total_likes()   # rememebr we created this total likes() function in model
         # adding another context variable to pass in likes 
         context["total_likes"] = total_likes
+
+        liked = False
+        if stuff.likes.filter(id = self.request.user.id).exists():
+            liked = True 
+        context["liked"] = liked
+        
         return context  # so now we can access "cat_menu" from our home page
 
 class AddPostView(CreateView):
@@ -120,7 +126,15 @@ def LikeView(request, pk):
 
     post = get_object_or_404(Post, id = request.POST.get('post_id')) # look up our post table, and grab id that equals request.post.get('post_id')
     # this is post id because of the name param in button on article detials page 
-    post.likes.add(request.user)
+
+    liked = False 
+    if post.likes.filter(id = request.user.id).exists():
+        # make it a dislike button 
+        post.likes.remove(request.user)
+        liked = True
+    else:
+        post.likes.add(request.user)
+        liked = True # adds a like for whoever clicked the like button 
 
     # when clicking the home button we dont want the page to switch
     return HttpResponseRedirect(reverse('article-detail', args = [str(pk)]))
