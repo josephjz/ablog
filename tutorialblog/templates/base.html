@@ -29,6 +29,48 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
 
+            <!-- drop down visible whether you are logged in or not  -->
+
+            <!-- VERY INTERESTING -- this categories drop down is shown on all pages, but look at HomeView class in views.py 
+            compared to the other pages views. There is no get context data, so the if a few lines down will result in a blank
+            drop down on all pages except home page. if this if cat_menu were above the li drop down, the whole drop down 
+            nav bar item would disappear when we dont have categories (or access to them ) -->
+
+            <!-- ugly fix, add that method to all view -->
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                <!-- quick code to get out our categories  -->
+                
+                {% if cat_menu %} <!-- if we have a category menu, then loop through it -->
+                  {% for item in cat_menu %}
+                      <!-- {{item}}<br> just printed them out -->
+                      <a class="dropdown-item" href="{% url 'category' item %}">{{item}}</a>
+                  {% endfor %}
+                {% endif %}
+
+                <!-- dumb but catmenu comes from class based, list from function based -->
+                {% if cat_menu_list %} <!-- if we have a category menu_list, then loop through it -->
+                  {% for item in cat_menu_list %}
+                      <!-- {{item}}<br> just printed them out -->
+                      <a class="dropdown-item" href="{% url 'category' item %}">{{item}}</a>
+                  {% endfor %}
+                {% endif %}
+
+
+
+                <!-- <a class="dropdown-item" href="#">Action</a>      old hardcoded drop downs
+                <a class="dropdown-item" href="#">Another action</a> -->
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'category-list' %}">Category List</a>
+            </li>
             <!-- SUPER IMPORTANT LOOK AT THIS CODE -->
             <!-- this is where we add in django code to change if user is logged in or not -->
             {% if user.is_authenticated %}

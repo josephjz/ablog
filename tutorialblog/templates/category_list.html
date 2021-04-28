@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Current Blog Categories 
+{% endblock %}
+<!-- this will be the page displayed when you click the specific blog post  -->
+
+{% block content %}
+
+<h1> Current Blog Categories </h1> 
+
+{% if cat_menu_list %} <!-- if we have a category menu_list, then loop through it -->
+    {% for item in cat_menu_list %}
+    <!-- {{item}}<br> just printed them out -->
+    <h4><a class="dropdown-item" href="{% url 'category' item %}">{{item}}</a></h4>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

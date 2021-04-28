@@ -16,6 +16,8 @@ My Freaking Awesome Blog Home
 
 <h1>Posts</h1>
 
+<!-- {{ cat_menu }} This would look like an ugly query set with all of our categories--> 
+
 <ul>
 {% for post in object_list %}                       <!-- REMEMBER that the '' word is the name param in urls paths;;;;; | is a django filter and slugify replaces white spaces with -,  post.category|slugify istead of just post.category which puts % in the white spaces but slugify broke my code  -->
     <li> <a href = "{% url 'article-detail' post.pk %}"> {{post.title}}</a>  - <a href= "{% url 'category' post.category %}" > {{post.category}} </a> - {{post.author.first_name}} {{post.author.last_name}} 
@@ -28,6 +30,7 @@ My Freaking Awesome Blog Home
     <!-- slice only displays 200 characters on the homepage  -->
 {% endfor %}
 </ul>
+    
 {% endblock %}
 
 

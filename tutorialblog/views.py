@@ -22,9 +22,33 @@ class HomeView(ListView): # normally we pass in the request
     # ordering = ['-id'] # helpful to look at the migrations to see this id in action
     ordering = ['-post_date']
 
+    # creating code that passes context dictonary stuff into our home page 
+    # rememebr we did this with category view but that was function based
+    # so now this is passing data with class based views 
+
+    def get_context_data(self, *args, **kwargs):
+        # query our category model of our data base to then create links out of all of them 
+        cat_menu = Category.objects.all() # this grabs out everything in our cateogy model, namely the names and then assign it to the var
+        # since our cateorgy model only has the name field, we dont need to filter and pull out the names, we ca just pull out everyitng (which is the name)
+        # lastly need to push  cat_menu onto the page as a context dictionary that we can then access 
+        context = super(HomeView, self).get_context_data(*args, **kwargs)
+        # super(_,) where _ is the view we are in 
+        context["cat_menu"] = cat_menu
+        return context  # so now we can access "cat_menu" from our home page
+
 class ArticleDetailView(DetailView):
     model = Post
     template_name = 'article_details.html'
+
+    def get_context_data(self, *args, **kwargs):
+        # query our category model of our data base to then create links out of all of them 
+        cat_menu = Category.objects.all() # this grabs out everything in our cateogy model, namely the names and then assign it to the var
+        # since our cateorgy model only has the name field, we dont need to filter and pull out the names, we ca just pull out everyitng (which is the name)
+        # lastly need to push  cat_menu onto the page as a context dictionary that we can then access 
+        context = super(ArticleDetailView, self).get_context_data(*args, **kwargs) # dont forget to change the super(_) for which view we are now working with 
+        # super(_,) where _ is the view we are in 
+        context["cat_menu"] = cat_menu
+        return context  # so now we can access "cat_menu" from our home page
 
 class AddPostView(CreateView):
     model = Post # this tells the view to use the post model 
@@ -33,6 +57,7 @@ class AddPostView(CreateView):
     # designate the fields for this page 
     # fields = ('title', 'body')    THIS DID NOT WORK
     # fields = '__all__' since we are now using the post form, we dont want to use this fields thing anymore (might be problematic)
+
 
 class UpdatePostView(UpdateView): # by passing in UpdatView we dont need to do the form_class thing that will happen automatically 
     model = Post
@@ -66,10 +91,22 @@ def CategoryView(request, cats): # remember this (cats) is what we named it on t
     # category is a field in our post model
     # now category_post is an object, so we can pass it into our html 
 
+    # dont know how to do the equivalent of get_context_data for the function based view, but trying here
+    cat_menu_list = Category.objects.all()
                                                                 # so that the title in the html tag comes up with spacee instead of - 
-    return render(request, 'categories.html', {'cats': cats.title().replace('-',' '), 'category_posts':category_posts}) #.title makes it cap
+    return render(request, 'categories.html', {'cats': cats.title().replace('-',' '), 'category_posts':category_posts, 'cat_menu_list':cat_menu_list}) #.title makes it cap
         # third param of function based views return render() is the context directory, these objects are then recognized by that html page 
         # can use bots cats and category_posts as vars on categories.html now 
+
+    
+
+def CategoryListView(request): 
+    # categories page which is linked in the nav bar 
+    # query the data base like we did in HomeView
+    cat_menu_list = Category.objects.all() # this grabs out everything in our category model, namely the names and then assign it to the var
+    # pass this query into our page 
+
+    return render(request, 'category_list.html', {'cat_menu_list':cat_menu_list}) 
 
 
 

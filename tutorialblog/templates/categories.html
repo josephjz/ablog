@@ -12,11 +12,14 @@ The {{cats}} Category
 <!-- inside of '' is the name of the url we want to point to (look at the urls file) -->
 <!-- need post.pk to know which post was clicked, and this post.pk gets passed to <int:pk> in url code-->
 
+
+{{cat_menu_list}}
 {% block content %}
 
 {% if category_posts %} <!-- aka if it exists -->
 
     <h1>The {{ cats }} Category</h1>
+    <!-- <h2> {{cat_menu_list}} </h2> -->
 
 
     <!-- category posts is an object  -->
