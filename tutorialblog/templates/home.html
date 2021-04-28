@@ -23,9 +23,10 @@ My Freaking Awesome Blog Home
     <li> <a href = "{% url 'article-detail' post.pk %}"> {{post.title}}</a>  - <a href= "{% url 'category' post.category %}" > {{post.category}} </a> - {{post.author.first_name}} {{post.author.last_name}} 
         <!-- if the user is logged in, we want them to be able to edit and delete -->
         {% if user.is_authenticated %}
-        - <a href = "{% url 'update-post' post.pk %}"><small>[Edit]</small></a> <a href = "{% url 'delete-post' post.pk %}"><small>[Delete]</small></a>
-        <br>
-        {% endif %}
+            {% if user.id == post.author.id %}
+             - <a href = "{% url 'update-post' post.pk %}"><small>[Edit]</small></a> <a href = "{% url 'delete-post' post.pk %}"><small>[Delete]</small></a>
+            {% endif %}
+        {% endif %}<br>
     {{ post.body }} </li>
     <!-- slice only displays 200 characters on the homepage  -->
 {% endfor %}

@@ -8,21 +8,21 @@ Edit Blog Post
 
 <!-- can only get to the edit page if you are logged in  -->
 {% if user.is_authenticated %}
-<h1>Edit Post</h1>
-<br><br>
-<div class = "form-group"> 
-    <form method = "POST">
-        {% csrf_token %}
-        <!-- using django form system -->
-        {{form.as_p}}
-        <button class = "btn btn-secondary"> Update </button>
-    </form>
-</div>
-
-<!-- if not logged in, all the edit page is hidden -->
-{% else %}
-<h1>Get out of here</h1>
-
+    {% if user.id == post.author.id %}
+        <h1>Edit Post</h1>
+        <br><br>
+        <div class = "form-group"> 
+            <form method = "POST">
+                {% csrf_token %}
+                <!-- using django form system -->
+                {{form.as_p}}
+                <button class = "btn btn-secondary"> Update </button>
+            </form>
+        </div>
+    {% else %}
+    <h1>Get out of here</h1>
+    {% endif %}
+        <!-- if not logged in, all the edit page is hidden -->        
 {% endif %}
 {% endblock %}
 

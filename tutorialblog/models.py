@@ -19,7 +19,7 @@ class Post(models.Model):
     title_tag = models.CharField(max_length = 255)#, default = "My Freaking Awesome Blog")
     author = models.ForeignKey(User, on_delete = models.CASCADE) # deletes blog post from a user that has been deleted
                                                                 # think about adding this for Biblio
-    # ForeignKey key is from the User 
+    # the author field is ForeignKey key on the User model, which is a part of the django admin system 
     category = models.CharField(max_length = 255, default = 'uncategorized')
     body = models.TextField()
     post_date = models.DateField(auto_now_add=True) # will happen automatically when new blog posts are created 

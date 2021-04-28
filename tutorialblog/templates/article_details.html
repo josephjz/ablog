@@ -6,20 +6,22 @@
 <!-- this will be the page displayed when you click the specific blog post  -->
 
 {% block content %}
+<!-- current user: {{ user.id }} because we are logged in  -->
+<!-- poster: {{ post.author.id }}  -->
 
 <h1>{{post.title}}</h1> 
 <small> By: {{post.author.first_name}} {{post.author.last_name}} </small> <br>
 <small> Date: {{post.post_date}} </small>
+
+{% if user.is_authenticated %} <!-- first check that they are a valid user aka logged in -->
+    {% if user.id == post.author.id %} <!-- then if this post we are looking at was posted by the user logged in -->
+        <a href = "{% url 'update-post' post.pk %}"><small>[Edit]</small></a> <a href = "{% url 'delete-post' post.pk %}"><small>[Delete]</small></a>
+    {% endif %}
+{% endif %}
+
 <hr>
 {{post.body}}
-<br>
-
-{% if user.is_authenticated %}
-<a href = "{% url 'update-post' post.pk %}"><small>[Edit]</small></a> <a href = "{% url 'delete-post' post.pk %}"><small>[Delete]</small></a>
-
-{% endif %}
 <br><br>
-
 <!-- without the class = this is a hyperlink, adding class makes it a bootstrap button  -->
 <a href= "{% url 'home' %}" class = "btn btn-secondary">Back</a>    
 
