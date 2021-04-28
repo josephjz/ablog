@@ -16,7 +16,6 @@ Including another URLconf
 
 # need to create a url for all apps we create in this file 
 
-
 from django.contrib import admin
 from django.urls import path, include
 

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Categories 
+The {{cats}} Category
 {% endblock %}
 
 
@@ -14,8 +14,31 @@ Categories
 
 {% block content %}
 
-<h1>Categories</h1>
-{{ cats }}
+{% if category_posts %} <!-- aka if it exists -->
+
+    <h1>The {{ cats }} Category</h1>
+
+
+    <!-- category posts is an object  -->
+
+    <ul>
+    {% for post in category_posts %}
+    <!-- remember in our home.html file we are basically doing the same thing with all of our posts  -->
+        <li> <a href = "{% url 'article-detail' post.pk %}"> {{post.title}}</a> - {{post.author.first_name}} {{post.author.last_name}} 
+            <!-- if the user is logged in, we want them to be able to edit and delete -->
+            {% if user.is_authenticated %}
+            - <a href = "{% url 'update-post' post.pk %}"><small>[Edit]</small></a> <a href = "{% url 'delete-post' post.pk %}"><small>[Delete]</small></a>
+            {% endif %}
+            <br>
+            {{ post.body }} 
+        </li>
+    {% endfor %}
+    </ul>
+
+{% else %}
+<h1>This page does not exist</h1>
+{% endif %}
+
 
 {% endblock %}
 
