@@ -23,12 +23,19 @@ class LoginForm(forms.ModelForm):
         }
 
 
-class RegistrationForm(UserCreationForm):
+class SignUpForm(UserCreationForm):
     email = forms.EmailField(required = True, widget = forms.EmailInput(attrs = {'class': 'form-control'} ))
-    username = forms.CharField(max_length=40, required=True, widget=forms.TextInput(attrs={'class': "form-control"}))
-    password1 = forms.CharField(max_length=30, required=True)
-    password2 = forms.CharField(max_length=30, required=True)
-    
+    first_name = forms.CharField(max_length = 100, widget = forms.TextInput(attrs = {'class': 'form-control'} ))
+    last_name = forms.CharField(max_length = 100, widget = forms.TextInput(attrs = {'class': 'form-control'} ))
+
     class Meta:
         model = User
-        fields = ('email','username', 'password1', 'password2')
+        fields = ('username','first_name', 'last_name', 'email', 'password1', 'password2')
+    
+    # NOTE: we needed to add this init function to handle the styling of the fields that are built into the django user 
+    # userename passwords 
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['password1'].widget.attrs['class'] = 'form-control'
+        self.fields['password2'].widget.attrs['class'] = 'form-control'
