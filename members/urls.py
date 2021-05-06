@@ -4,10 +4,10 @@
 from django.urls import path  # deleted include import
 # from . import views # this is what we have for function based views 
 
-from .views import UserRegisterView, UserLoginView #, RegistrationView
+from .views import UserRegisterView, UserLoginView, UserEditView
 
 urlpatterns = [
     path('login/',UserLoginView.as_view(), name = 'login'),
     path('register/',UserRegisterView.as_view(), name = 'register'), 
-    #path('register/',RegistrationView.as_view(), name = 'register'),
+    path('edit_profile/',UserEditView.as_view(), name = 'edit_profile'),
 ]

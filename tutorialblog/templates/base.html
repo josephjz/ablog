@@ -82,6 +82,10 @@
                 </li>
                 <li class="nav-item">
                   <!-- IMPORTANT NOTE: remember in original urls.py file (project wide) the django.contrib.auth.urls has login as one of those built in login urls for us -->
+                  <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>  
+                </li>
+                <li class="nav-item">
+                  <!-- IMPORTANT NOTE: remember in original urls.py file (project wide) the django.contrib.auth.urls has login as one of those built in login urls for us -->
                   <a class="nav-link" href="{% url 'logout' %}">Logout</a>  
                 </li>
             {% else %}
