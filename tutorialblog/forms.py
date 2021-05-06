@@ -42,7 +42,6 @@ class PostForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter your post title'}),
             'title_tag': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter a post title tag'}),
             #'author_deleted': forms.Select(attrs={'class':'form-control'}), # this is a drop down, aka select drop down
-            #'author': forms.TextInput(attrs={'class':'form-control','value':'','id':'elder','type':'hidden'}), # we add and id for this textbox to write some javascript with it in add post page
             'author': forms.TextInput(attrs={'class':'form-control', 'value':'', 'type':'hidden','id':'elder'}), # we add and id for this textbox to write some javascript with it in add post page, it is a css id
             'category': forms.Select(choices = choice_list, attrs={'class':'form-control'}), # these are hard coded choices; would get error if you put attrs first 
             'body': forms.Textarea(attrs={'class':'form-control', 'placeholder':'What is on your mind today?'}), # this is a body, which is a text area 

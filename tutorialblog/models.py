@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from datetime import datetime, date
 
+from ckeditor.fields import RichTextField # for rich text editor 
+
 
 # this is a lil more involved than we need for the majors, but could work
 class Category(models.Model):
@@ -21,7 +23,8 @@ class Post(models.Model):
                                                                 # think about adding this for Biblio
     # the author field is ForeignKey key on the User model, which is a part of the django admin system 
     category = models.CharField(max_length = 255, default = 'uncategorized')
-    body = models.TextField()
+    #body = models.TextField()
+    body = RichTextField(blank = True, null = True) # always migrate when you change models
     post_date = models.DateField(auto_now_add=True) # will happen automatically when new blog posts are created 
 
     # adding a new field for likes 

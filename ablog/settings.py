@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tutorialblog', # added the project app to the installed apps of project wide settings.py
     'members',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [

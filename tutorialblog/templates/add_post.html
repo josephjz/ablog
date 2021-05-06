@@ -31,6 +31,7 @@ Add Blog Post
         <form method = "POST">
             {% csrf_token %}
             <!-- using django form system -->
+            {{form.media}}
             {{form.as_p}}     <!-- 0 styling on this -->    <!-- as p means every field is in a p tag -->
             <button class = "btn btn-secondary"> Post </button>
         </form>
