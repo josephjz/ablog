@@ -26,6 +26,7 @@ class Post(models.Model):
     #body = models.TextField()
     body = RichTextField(blank = True, null = True) # always migrate when you change models
     post_date = models.DateField(auto_now_add=True) # will happen automatically when new blog posts are created 
+    snippet = models.CharField(max_length = 255)
 
     # adding a new field for likes 
     # using many to many becuase we are associating iff things from diff tables 

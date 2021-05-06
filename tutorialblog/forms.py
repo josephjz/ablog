@@ -29,7 +29,8 @@ class PostForm(forms.ModelForm):
             'title_tag', 
             'author', 
             'category',
-            'body'
+            'body',
+            'snippet',
         }
 
         # note: before for loggedin/authenticating user, we used user.id but that is only known to the front end 
@@ -45,6 +46,7 @@ class PostForm(forms.ModelForm):
             'author': forms.TextInput(attrs={'class':'form-control', 'value':'', 'type':'hidden','id':'elder'}), # we add and id for this textbox to write some javascript with it in add post page, it is a css id
             'category': forms.Select(choices = choice_list, attrs={'class':'form-control'}), # these are hard coded choices; would get error if you put attrs first 
             'body': forms.Textarea(attrs={'class':'form-control', 'placeholder':'What is on your mind today?'}), # this is a body, which is a text area 
+            'snippet': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Preview text'}), # this is a body, which is a text area 
         }
 
 class EditForm(forms.ModelForm):
@@ -53,12 +55,14 @@ class EditForm(forms.ModelForm):
         fields = { # not editing the author 
             'title',
             'title_tag',
-            'body'
+            'body', 
+            'snippet'
         }
 
         widgets = {
             'title': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter a post title'}),
             'title_tag': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter a post title tag'}),
             'body': forms.Textarea(attrs={'class':'form-control', 'placeholder':'What is on your mind today?'}), # this is a body, which is a text area 
+            'snippet': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Preview '}), # this is a body, which is a text area 
         }
 
