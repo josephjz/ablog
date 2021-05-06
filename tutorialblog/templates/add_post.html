@@ -37,10 +37,9 @@ Add Blog Post
     </div>
 
     <script>   // in here is the javascript block
-        var name = "{{ user.username }}";
+        var name = "{{ user.id }}";
         document.getElementById("elder").value = name;
     </script>
-
 
 <!-- if not logged in, all the edit page is hidden -->
 {% else %}

@@ -27,6 +27,7 @@ urlpatterns = [
 
     # now we need class based views urls 
     path('', HomeView.as_view(), name = "home"), # home page 
+    
     path('article/<int:pk>', ArticleDetailView.as_view(), name = "article-detail"),   # BIG NOTE: each blog post has its own primary key, makes every post unique
     path('add_post/', AddPostView.as_view(), name = "add-post"), 
     path('article/edit/<int:pk>', UpdatePostView.as_view(), name = "update-post"), 
