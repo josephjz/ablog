@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from .models import Member
 
 
@@ -55,4 +55,13 @@ class EditProfileForm(UserChangeForm):
         model = User # quick note on fields below -- the order of fields is order they will show up on page 
         fields = ('username','first_name','last_name','email','password','last_login','is_superuser','is_staff', 'is_active','date_joined')
         # if there are fields you don't want, just do't include them in this class Meta fields section 
-        
+
+
+class PasswordChangingForm(PasswordChangeForm):
+    old_password = forms.CharField(widget = forms.PasswordInput(attrs = {'class': 'form-control', 'type':'password'}))
+    new_password1 = forms.CharField(widget = forms.PasswordInput(attrs = {'class': 'form-control', 'type':'password'}))
+    new_password2 = forms.CharField(widget = forms.PasswordInput(attrs = {'class': 'form-control', 'type':'password'}))
+
+    class Meta:
+        model = User
+        fields = ('old_password','new_password1', 'new_password2')
