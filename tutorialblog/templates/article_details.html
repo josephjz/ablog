@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 {{post.title_tag}}
@@ -52,7 +53,11 @@ You must be logged in to like posts
 <div class="card mb-3">
     <div class="row no-gutters">
       <div class="col-md-2">
-        <img class="card-img" src="{{post.author.profile.profile_pic.url}}" >
+          {% if post.author.profile.profile_pic %}
+            <img class="card-img" src="{{post.author.profile.profile_pic.url}}" >
+          {% else %}  
+            <img class="card-img" src= "{% static 'tutorialblog/images/default.jpg' %}" >
+          {% endif %}  
       </div>
       <div class="col-md-10">
         <div class="card-body">
