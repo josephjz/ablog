@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from .models import Member
-
+from tutorialblog.models import Profile 
 
 # create a class 
 # inherits forms.ModelForm which allows us to create form fields for our model (post model)
@@ -65,3 +65,19 @@ class PasswordChangingForm(PasswordChangeForm):
     class Meta:
         model = User
         fields = ('old_password','new_password1', 'new_password2')
+
+class ProfilePageForm(forms.ModelForm):
+    class Meta: 
+        model = Profile
+        # note that we have left off user, becuaes we do not want them to be able to choose who the user is 
+        fields = ('bio', 'profile_pic', 'insta_url', 'twitter_url', 'website_url', 'fb_url')
+
+        widgets = {
+            'bio': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Bio Section'}),
+            #'profile_pic': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter a post title tag'}),
+            'insta_url': forms.TextInput(attrs={'class':'form-control'}), # we add and id for this textbox to write some javascript with it in add post page, it is a css id
+            'twitter_url': forms.TextInput(attrs={'class':'form-control'}), # these are hard coded choices; would get error if you put attrs first 
+            'website_url': forms.TextInput(attrs={'class':'form-control'}), # this is a body, which is a text area 
+            'fb_url': forms.TextInput(attrs={'class':'form-control'}), # this is a body, which is a text area 
+        }
+

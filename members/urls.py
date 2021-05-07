@@ -4,7 +4,7 @@
 from django.urls import path  # deleted include import
 from . import views # this is what we have for function based views 
 
-from .views import UserRegisterView, UserLoginView, UserEditView, PasswordsChangeView, ShowProfilePageView, EditProfilePageView
+from .views import UserRegisterView, UserLoginView, UserEditView, PasswordsChangeView, ShowProfilePageView, EditProfilePageView, CreateProfilePageView
 
 from django.contrib.auth import views as auth_views # allows us to use some views with the built in authenticaiton systme
 
@@ -19,4 +19,5 @@ urlpatterns = [
     path('password_success', views.password_success, name = "password_success"),
     path('<int:pk>/profile/', ShowProfilePageView.as_view(), name = 'show_profile_page'),
     path('<int:pk>/edit_profile_page/', EditProfilePageView.as_view(), name = 'edit_profile_page'),
+    path('create_profile_page/', CreateProfilePageView.as_view(), name = 'create_profile_page'),
 ]

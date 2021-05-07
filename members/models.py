@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# Create your models here. THIS ISNT BEING USED IN THE APP ANYWHERE
 class Member(models.Model):
     username = models.CharField(max_length=40)
     first_name = models.CharField(max_length=30)

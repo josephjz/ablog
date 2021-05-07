@@ -3,9 +3,9 @@ from django.views import generic
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy 
-from .forms import SignUpForm, LoginForm, EditProfileForm, PasswordChangingForm
+from .forms import SignUpForm, LoginForm, EditProfileForm, PasswordChangingForm, ProfilePageForm
 from .models import Member
-from django.views.generic import DetailView
+from django.views.generic import DetailView, CreateView
 # in class defined views, must define form_class, template_name, and success_url
 
 from tutorialblog.models import Profile
@@ -55,3 +55,19 @@ class EditProfilePageView(generic.UpdateView):
     template_name = 'registration/edit_profile_page.html'
     fields = ['bio', 'profile_pic', 'website_url', 'insta_url', 'twitter_url', 'fb_url']
     success_url = reverse_lazy('home')
+
+class CreateProfilePageView(CreateView):
+    model = Profile
+    form_class = ProfilePageForm
+    template_name = 'registration/create_user_profile_page.html'
+
+
+    # allows for knowing which user is filling out this form 
+    # form will pass the user
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user # there is a user filling out this form, lets grab them and make it availabel to the form
+        return super().form_valid(form) # passing in the form that has been submitted on this page 
+
+    # so user id available to profile, so that this form gets saved to the right user id 
+
