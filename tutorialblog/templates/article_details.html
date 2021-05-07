@@ -26,7 +26,6 @@
     <img src = "{{ post.header_image.url }}" width = 600 height = 600> <br>
 {% endif %}
 {{ post.body|safe }}
-<br>
 <hr>
 
 <form action="{% url 'like-post' post.pk%}" method = "POST"}>   <!-- passing post.pk rememebrs which post we are looking at -->
@@ -46,10 +45,23 @@ You must be logged in to like posts
 {% endif %}
 <br>
 {{total_likes}} Likes
-
+<hr>
 </form>
-<br>
 
+<h3> Comments </h3>
+{% if not post.comments.all %} <!-- using related name of comments for our reference to comment model -->
+  No comments yet... <a href="#"> Add One </a>
+{% else %}
+  <!-- looping through comments -->
+  {% for comment in post.comments.all %}
+    <strong> {{ comment.name }} - {{comment.date_added}} </strong>
+    <br>
+    {{comment.body}}
+    <br>
+  {% endfor %}
+{% endif %} 
+
+<hr>
 <div class="card mb-3">
     <div class="row no-gutters">
       <div class="col-md-2">
@@ -84,6 +96,6 @@ You must be logged in to like posts
   </div>
 
 <!-- without the class = this is a hyperlink, adding class makes it a bootstrap button  -->
-<a href= "{% url 'home' %}" class = "btn btn-secondary btn-small">Back</a>    
+<!-- <a href= "{% url 'home' %}" class = "btn btn-secondary btn-small">Back</a>     -->
 
 {% endblock %}
