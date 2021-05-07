@@ -31,6 +31,7 @@ class PostForm(forms.ModelForm):
             'category',
             'body',
             'snippet',
+            'header_image',
         }
 
         # note: before for loggedin/authenticating user, we used user.id but that is only known to the front end 
@@ -47,7 +48,8 @@ class PostForm(forms.ModelForm):
             'category': forms.Select(choices = choice_list, attrs={'class':'form-control'}), # these are hard coded choices; would get error if you put attrs first 
             'body': forms.Textarea(attrs={'class':'form-control', 'placeholder':'What is on your mind today?'}), # this is a body, which is a text area 
             'snippet': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Preview text'}), # this is a body, which is a text area 
-        }
+            #'header_image': 
+    }
 
 class EditForm(forms.ModelForm):
     class Meta: 

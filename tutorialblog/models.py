@@ -18,6 +18,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length = 255)
+    header_image = models.ImageField(null = True, blank = True, upload_to = "images/")
     title_tag = models.CharField(max_length = 255)#, default = "My Freaking Awesome Blog")
     author = models.ForeignKey(User, on_delete = models.CASCADE) # deletes blog post from a user that has been deleted
                                                                 # think about adding this for Biblio

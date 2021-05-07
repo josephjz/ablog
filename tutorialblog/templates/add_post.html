@@ -28,7 +28,7 @@ Add Blog Post
     <button class = "btn btn-secondary"> Post </button> -->
 
     <div class = "form-group"> 
-        <form method = "POST">
+        <form method = "POST" enctype = "multipart/form-data">
             {% csrf_token %}
             <!-- using django form system -->
             {{form.media}}
