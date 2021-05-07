@@ -22,7 +22,7 @@
 <hr>
 
 {% if post.header_image  %}
-    <img src = "{{ post.header_image.url }}"> <br>
+    <img src = "{{ post.header_image.url }}" width = 600 height = 600> <br>
 {% endif %}
 {{ post.body|safe }}
 <br>
@@ -48,6 +48,35 @@ You must be logged in to like posts
 
 </form>
 <br>
+
+<div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-2">
+        <img class="card-img" src="{{post.author.profile.profile_pic.url}}" >
+      </div>
+      <div class="col-md-10">
+        <div class="card-body">
+          <h5 class="card-title">{{post.author.first_name}} {{post.author.last_name}}</h5>
+          <p class="small text-muted">
+            {% if post.author.profile.website_url %}
+                <a href = "{{post.author.profile.website_url}}"> Website</a>
+            {% endif %}
+            {% if post.author.profile.fb_url %}
+                <a href = "{{post.author.profile.fb_url}}">| Facebook </a>
+            {% endif %}
+            {% if post.author.profile.insta_url %}
+              <a href = "{{post.author.profile.insta_url}}">| Instagram </a>
+            {% endif %}
+            {% if post.author.profile.twitter_url %}
+              <a href = "{{post.author.profile.twitter_url}}">| Twitter </a>
+            {% endif %}
+         </p>
+          <p class="card-text">{{post.author.profile.bio}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <!-- without the class = this is a hyperlink, adding class makes it a bootstrap button  -->
 <a href= "{% url 'home' %}" class = "btn btn-secondary btn-small">Back</a>    
 
