@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add Comment  
+{% endblock %}
+
+
+<!-- object_list is query of all blog posts from the data base -->
+<!-- next line is a for loop, print them all out individually-->
+
+<!-- MAKING THE TITLE OF EACH BLOG POST LINKABLE WITH THE A HREF TAG -->
+<!-- inside of '' is the name of the url we want to point to (look at the urls file) -->
+<!-- need post.pk to know which post was clicked, and this post.pk gets passed to <int:pk> in url code-->
+
+{% block content %}
+
+
+<h1>Comment on Blog Post </h1>
+<br><br>
+<div class = "form-group"> 
+    <form method = "POST">
+        {% csrf_token %}
+        {{form.as_p}} 
+        <button class = "btn btn-secondary"> Comment </button>
+    </form>
+</div>
+
+
+{% endblock %}
+
+

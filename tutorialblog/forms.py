@@ -1,7 +1,7 @@
 # in order to style our django forms used to make blog posts, we need to create a form  
 
 from django import forms
-from .models import Post, Category 
+from .models import Post, Category, Comment
 
 # hard coded
 #choices = [('Coding','Coding'), ('Sports','Sports'), ('Music','Music'),]
@@ -66,5 +66,18 @@ class EditForm(forms.ModelForm):
             'title_tag': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter a post title tag'}),
             'body': forms.Textarea(attrs={'class':'form-control', 'placeholder':'What is on your mind today?'}), # this is a body, which is a text area 
             'snippet': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Preview '}), # this is a body, which is a text area 
+        }
+
+class CommentForm(forms.ModelForm):
+    class Meta: 
+        model = Comment
+        fields = { # not editing the author 
+            'name',
+            'body',
+        }
+        
+        widgets = {
+            'name': forms.TextInput(attrs={'class':'form-control'}),
+            'body': forms.Textarea(attrs={'class':'form-control'}), # this is a body, which is a text area 
         }
 

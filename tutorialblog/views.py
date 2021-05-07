@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post, Category
-from .forms import PostForm, EditForm
+from .models import Post, Category, Comment
+from .forms import PostForm, EditForm, CommentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
@@ -82,6 +82,13 @@ class DeletePostView(DeleteView):
     model = Post
     template_name = 'delete_post.html'
     success_url = reverse_lazy('home')
+
+class AddCommentView(CreateView):
+    model = Comment # this tells the view to use the post model 
+    form_class = CommentForm # but we also need to tell it to use our post form 
+    template_name = 'add_comment.html'
+    success_url = reverse_lazy('home')
+
 
 class AddCategoryView(CreateView):
     model = Category # this tells the view to use the post model 
