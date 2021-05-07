@@ -1,12 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import generic 
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy 
 from .forms import SignUpForm, LoginForm, EditProfileForm, PasswordChangingForm
 from .models import Member
-
+from django.views.generic import DetailView
 # in class defined views, must define form_class, template_name, and success_url
+
+from tutorialblog.models import Profile
 
 # this is the built in one 
 class UserRegisterView(generic.CreateView):
@@ -28,7 +30,6 @@ class UserEditView(generic.UpdateView):
     def get_object(self):
         return self.request.user # will pass in the current user 
 
-
 def password_success(request):
     return render(request, 'registration/password_success.html', {})
 
@@ -37,5 +38,20 @@ class PasswordsChangeView(PasswordChangeView):
     #success_url = reverse_lazy('home')
     success_url = reverse_lazy('password_success') # this reverse lazy is to the name given in urls
 
+class ShowProfilePageView(DetailView):
+    model = Profile
+    template_name = 'registration/user_profile.html'
 
+    def get_context_data(self, *args, **kwargs):
+        #users = Profile.objects.all() 
+        context = super(ShowProfilePageView, self).get_context_data(*args, **kwargs)
+        page_user = get_object_or_404(Profile, id = self.kwargs['pk']) # grab only specific user  
+        context["page_user"] = page_user
+     
+        return context  # so now we can access "cat_menu" from our home page
 
+class EditProfilePageView(generic.UpdateView):
+    model = Profile
+    template_name = 'registration/edit_profile_page.html'
+    fields = ['bio', 'profile_pic', 'website_url', 'insta_url', 'twitter_url', 'fb_url']
+    success_url = reverse_lazy('home')
