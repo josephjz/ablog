@@ -89,6 +89,10 @@ class AddCommentView(CreateView):
     template_name = 'add_comment.html'
     success_url = reverse_lazy('home')
 
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk'] # watch last 5 of video 34 for this
+        return super().form_valid(form)
+
 
 class AddCategoryView(CreateView):
     model = Category # this tells the view to use the post model 
